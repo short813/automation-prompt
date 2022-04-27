@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Objects;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
@@ -14,9 +15,12 @@ public class Application_Reader {
     public String lastName;
     public String state;
     public int felonies;
-    public String gpa;
+    public Double gpa;
+    public String gpaScale;
     public String age;
+    public int felonyDate;
     public JSONObject application;
+
     public Application_Reader() {
     }
 
@@ -26,9 +30,10 @@ public class Application_Reader {
         firstName = application.get("FirstName").toString();
         lastName = application.get("LastName").toString();
         state = application.get("State").toString();
-        gpa = application.get("GPA").toString();
+        gpa = Double.valueOf(application.get("GPA").toString());
         age = application.get("Age").toString();
         felonies = Integer.parseInt(application.get("Felonies").toString());
+        gpaScale = application.get("GPAScale").toString();
     }
 
     public HashMap Store_Candidate_Information(){
@@ -39,6 +44,7 @@ public class Application_Reader {
         candidate.put("GPA",gpa);
         candidate.put("Age",age);
         candidate.put("Felonies",felonies);
+        candidate.put("GPAScale",gpaScale);
 
         if(application.get("ACT") == null) {
             candidate.put("ACT", null);
@@ -59,7 +65,7 @@ public class Application_Reader {
             candidate.put("FelonyDate", null);
         }
         else{
-            Date felonyDate = (Date) application.get("Felony_Date");
+            long felonyDate = (Long) application.get("FelonyDate");
             candidate.put("FelonyDate",felonyDate);
         }
         System.out.println(candidate);

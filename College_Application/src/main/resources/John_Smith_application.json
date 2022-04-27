@@ -5,9 +5,10 @@
   "Address":"111 A St",
   "City": "San Diego",
   "State": "CA",
-  "GPA": 3.9,
+  "GPA": 1.6,
+  "GPAScale": 4.0,
   "SAT": 1930,
   "ACT": null,
-  "Felonies": 0,
-  "Felony_Date": null
+  "Felonies": 1,
+  "FelonyDate": 2001
 }

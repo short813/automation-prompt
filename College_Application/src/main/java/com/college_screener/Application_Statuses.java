@@ -11,7 +11,6 @@ public class Application_Statuses {
         statusMap.put(ApplicationStatus.ACCEPT,"instant accept");
         statusMap.put(ApplicationStatus.REJECT,"instant reject");
         statusMap.put(ApplicationStatus.REVIEW,"further review");
-        statusMap.put(ApplicationStatus.CONTINUE,"Needs more information");
         return statusMap;
     }
 }

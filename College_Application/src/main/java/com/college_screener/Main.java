@@ -21,6 +21,7 @@ public class Main {
         HashMap candidate_information = result.Store_Candidate_Information();
         Application_Screener screen_results = new Application_Screener();
         String results = screen_results.Screener(candidate_information);
+        System.out.println(results);
 
 
 
