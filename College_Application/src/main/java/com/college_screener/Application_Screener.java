@@ -1,64 +1,48 @@
 package com.college_screener;
 
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.*;
 
 import static com.college_screener.Application_Judgment.*;
 
 public class Application_Screener {
 
-    public String verdict;
+    public static String verdict;
 
-    public String Screener(HashMap candidate){ //test method just to get all validations tested.
-
-        if(Objects.equals(NameValidator(candidate), "further review")){
-            verdict = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REVIEW).toString();
+    public String Screenerv2(HashMap candidate){
+        String nameValidation = NameValidator(candidate);
+        String ageValidation = AgeValidator(candidate);
+        String felonyCheck = FelonyCheck(candidate);
+        String gpaCheck = GPACheck(candidate);
+        String standardizedTestingCheck = StandardizedTestingCheck(candidate);
+        String[] validationArray = new String[]{nameValidation,ageValidation,felonyCheck,gpaCheck,standardizedTestingCheck};
+        ArrayList<String> validationList = new ArrayList<>(Arrays.asList(validationArray));
+        if(validationList.contains("instant reject")){
+            verdict = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REJECT).toString();
+        }
+        else if(validationList.contains("instant accept")){
+            verdict = InstantAcceptCheck(validationList);
         }
         else{
-            verdict = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REJECT).toString();
-            return verdict;
-        }
-        if(Objects.equals(AgeValidator(candidate), "instant accept")){
-            verdict = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.ACCEPT).toString();
-        } else if ((Objects.equals(AgeValidator(candidate), "further review"))) {
             verdict = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REVIEW).toString();
-        }
-        else{
-            verdict = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REJECT).toString();
-            return verdict;
 
         }
-        if(Objects.equals(FelonyCheck(candidate), "further review")){
-            verdict = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REVIEW).toString();
-    }
-        else {
-            verdict = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REJECT).toString();
-            return verdict;
-
-        }
-        if(Objects.equals(GPACheck(candidate),"further review")) {
-            verdict = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REVIEW).toString();
-        }
-        else if(Objects.equals(GPACheck(candidate),"instant accept")){
-            verdict = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.ACCEPT).toString();
-        }
-        else{
-            verdict = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REJECT).toString();
-            return verdict;
-
-        }
-        if (Objects.equals(StandardizedTestingCheck(candidate),"further review")){
-            verdict = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REVIEW).toString();
-        }
-        else{
-            verdict = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.ACCEPT).toString();
-
-
-        }
-        System.out.println(verdict);
         return verdict;
+    }
+    public static String InstantAcceptCheck(ArrayList<String> list){
+        int instantAcceptCounter = 0;
+        for (String s : list){
 
+            if(s == "instant accept"){
+                instantAcceptCounter++;
+            }
+        }
+        if (instantAcceptCounter == 3){
+            verdict = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.ACCEPT).toString();
+        }
+        else{
+            verdict = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REVIEW).toString();
+        }
+        return verdict;
     }
 }
 

@@ -19,6 +19,8 @@ public class Application_Judgment {
                 character = firstName.charAt(i);
                 if (Character.isUpperCase(character)) {
                     status = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REJECT).toString();
+                    System.out.println("This candidate failed because their name did not following the name convention");
+                    return status;
                 } else {
                     status = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REVIEW).toString();
                 }
@@ -28,6 +30,8 @@ public class Application_Judgment {
                 character = lastName.charAt(i);
                 if (Character.isUpperCase(character)) {
                     status = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REJECT).toString();
+                    System.out.println("This candidate failed because their name did not following the name convention");
+                    return status;
                 } else {
                     status = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REVIEW).toString();
                 }
@@ -57,21 +61,29 @@ public class Application_Judgment {
         }
         else{ // your age is less than 0 instant reject
             status = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REJECT).toString();
+            System.out.println("This candidate failed because they inputted their age as less than 0");
+            return status;
 
         }
         return status;
     }
 
     public static String FelonyCheck(HashMap candidate){
-        int felonyDate = Integer.parseInt(candidate.get("FelonyDate").toString());
-        int current_Year = current_date.getYear();
-        int felonyDateDifference =current_Year-felonyDate;
-        if (felonyDateDifference <= 5){
-            status = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REJECT).toString();
+        int felonies = Integer.parseInt(candidate.get("Felonies").toString());
+        if (felonies >=1) {
+            int felonyDate = Integer.parseInt(candidate.get("FelonyDate").toString());
+            int current_Year = current_date.getYear();
+            int felonyDateDifference = current_Year - felonyDate;
+            if (felonyDateDifference <= 5) {
+                status = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REJECT).toString();
+                System.out.println("This candidate failed because they had one or more felonies within the last 5 years");
+                return status;
+            } else {
+                status = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REVIEW).toString();
+            }
         }
-        else{
-            status = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REVIEW).toString();
-        }
+        status = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REVIEW).toString();
+
         return status;
     }
 
@@ -85,6 +97,8 @@ public class Application_Judgment {
                 status = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REVIEW).toString();
             } else {
                 status = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REJECT).toString();
+                System.out.println("This candidate failed because their GPA was not high enough");
+                return status;
 
             }
         }
@@ -95,7 +109,8 @@ public class Application_Judgment {
                 status = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REVIEW).toString();
             } else {
                 status = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REJECT).toString();
-
+                System.out.println("This candidate failed because their GPA was not high enough");
+                return status;
             }
         }
         return status;
@@ -109,7 +124,6 @@ public class Application_Judgment {
         }
         else{
             sat = Integer.parseInt(candidate.get("SAT").toString());
-            System.out.println(sat);
         }
         if(candidate.get("ACT") == null){
             act =0;

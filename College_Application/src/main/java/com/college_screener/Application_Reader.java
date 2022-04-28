@@ -68,8 +68,6 @@ public class Application_Reader {
             long felonyDate = (Long) application.get("FelonyDate");
             candidate.put("FelonyDate",felonyDate);
         }
-        System.out.println(candidate);
-
     return candidate;
     }
 }
