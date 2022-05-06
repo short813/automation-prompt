@@ -14,7 +14,7 @@ public class Main {
     }
 
     public static void Application_Processor() throws IOException, ParseException {
-        Object application = new JSONParser().parse(new FileReader("src/main/resources/Richard_Luu_application.json"));
+        Object application = new JSONParser().parse(new FileReader("main/resources/Richard_Luu_application.json"));
         JSONObject application_json = (JSONObject) application;
         Application_Reader result = new Application_Reader();
         result.Get_Candidate_Information(application_json);
