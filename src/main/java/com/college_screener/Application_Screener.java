@@ -30,12 +30,14 @@ public class Application_Screener {
     }
     public static String InstantAcceptCheck(ArrayList<String> list){
         int instantAcceptCounter = 0;
+        // Parse through results of the validations to see if there is enough instant accepts to be classified as an instant accept
         for (String s : list){
 
             if(s == "instant accept"){
                 instantAcceptCounter++;
             }
         }
+        // As there are 4 conditions to instant accept that includes no instant reject
         if (instantAcceptCounter == 3){
             verdict = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.ACCEPT).toString();
         }

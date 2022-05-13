@@ -14,7 +14,7 @@ public class Application_Judgment {
         char firstNameCharacter = firstName.charAt(0);
         char lastNameCharacter = lastName.charAt(0);
         if(Character.isUpperCase(firstNameCharacter) && Character.isUpperCase(lastNameCharacter)) {
-
+            // Iterate through the first name string to look for upper case letters
             for (i = 1; i < firstName.length(); i++) {
                 character = firstName.charAt(i);
                 if (Character.isUpperCase(character)) {
@@ -71,6 +71,7 @@ public class Application_Judgment {
     public static String FelonyCheck(HashMap candidate){
         int felonies = Integer.parseInt(candidate.get("Felonies").toString());
         if (felonies >=1) {
+            // Check whether applicant's felony is within the last 5 years
             int felonyDate = Integer.parseInt(candidate.get("FelonyDate").toString());
             int current_Year = current_date.getYear();
             int felonyDateDifference = current_Year - felonyDate;
@@ -91,11 +92,14 @@ public class Application_Judgment {
         Double gpaScale = Double.parseDouble(candidate.get("GPAScale").toString());
         double gpa = Double.parseDouble(candidate.get("GPA").toString());
         if(gpaScale.equals(4.0)) {
+            // GPA 90% or higher
             if (gpa >= 3.6) {
                 status = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.ACCEPT).toString();
-            } else if (gpa >= 2.8 && gpa <= 3.59) {
+            }// GPA between 70% and 89%
+            else if (gpa >= 2.8 && gpa <= 3.59) {
                 status = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REVIEW).toString();
-            } else {
+            } // GPA less than 70%
+            else {
                 status = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REJECT).toString();
                 System.out.println("This candidate failed because their GPA was not high enough");
                 return status;
@@ -103,11 +107,14 @@ public class Application_Judgment {
             }
         }
         else if(gpaScale.equals(5.0)){
+            // GPA 90% or higher
             if (gpa >= 4.5) {
                 status = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.ACCEPT).toString();
-            } else if (gpa >= 3.5 && gpa <= 4.49) {
+            }// GPA between 70% and 89%
+            else if (gpa >= 3.5 && gpa <= 4.49) {
                 status = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REVIEW).toString();
-            } else {
+            } // GPA less than 70%
+            else {
                 status = Application_Statuses.EnumMapper().get(Application_Statuses.ApplicationStatus.REJECT).toString();
                 System.out.println("This candidate failed because their GPA was not high enough");
                 return status;

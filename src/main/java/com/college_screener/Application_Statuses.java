@@ -4,7 +4,7 @@ import java.util.EnumMap;
 
 public class Application_Statuses {
     public enum ApplicationStatus{
-        ACCEPT,REJECT,REVIEW,CONTINUE;
+        ACCEPT,REJECT,REVIEW;
     }
     public static EnumMap EnumMapper(){
         EnumMap<ApplicationStatus,String> statusMap = new EnumMap<ApplicationStatus,String>(ApplicationStatus.class);
