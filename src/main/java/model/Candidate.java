@@ -12,8 +12,8 @@ public class Candidate {
     private Residency state;
     private GPA gpa;
     private int age;
-    private List<Felonies> felonies = new ArrayList<>();
-    private List<StandardTestingScores> score = new ArrayList<>();
+    private List<Felonies> felonies;
+    private List<StandardTestingScores> score;
 
     public Candidate(String firstName, String lastName, Residency state, GPA gpa, int age, ArrayList<Felonies> felonies, ArrayList<StandardTestingScores> score) {
         this.firstName = firstName;

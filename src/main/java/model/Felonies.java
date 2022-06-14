@@ -1,11 +1,17 @@
 package model;
 
-import java.util.Calendar;
+import java.time.Year;
+import java.time.LocalDate;
+
 
 public class Felonies {
-    private Calendar convictionDate;
+    private Year convictionDate;
 
-    public Calendar getConvictionDate() {
+    public Felonies(Year convictionDate) {
+        this.convictionDate = convictionDate;
+
+    }
+    public Year getConvictionDate() {
         return this.convictionDate;
     }
 }
