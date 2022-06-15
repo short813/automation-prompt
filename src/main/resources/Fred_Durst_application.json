@@ -1,0 +1,14 @@
+{
+  "FirstName": "Fred",
+  "LastName": "Durst",
+  "Age": 19,
+  "Address":"111 A St",
+  "City": "Seattle",
+  "State": "WA",
+  "GPA": 3.5,
+  "GPAScale": 5.0,
+  "SAT": [1800,1500,2100],
+  "ACT": [27,21,28],
+  "FelonyDate": [2005, 2020]
+}
+
