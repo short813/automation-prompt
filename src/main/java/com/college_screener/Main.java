@@ -1,4 +1,5 @@
 package com.college_screener;
+import model.Candidate;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -17,10 +18,9 @@ public class Main {
         Object application = new JSONParser().parse(new FileReader("src/main/resources/Richard_Luu_application.json"));
         JSONObject application_json = (JSONObject) application;
         Application_Reader result = new Application_Reader();
-        result.Get_Candidate_Information(application_json);
-        HashMap candidate_information = result.Store_Candidate_Information();
+        Candidate candidate =  result.Get_Candidate_Information(application_json);
         Application_Screener screen_results = new Application_Screener();
-        String results = screen_results.Screenerv2(candidate_information);
+        String results = screen_results.CandidateScreening(candidate);
         System.out.println(results);
 
 

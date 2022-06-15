@@ -1,73 +1,93 @@
 package com.college_screener;
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Objects;
+import java.time.Year;
+import java.util.*;
 
+import model.Candidate;
+import model.Felonies;
+import model.Residency;
+import model.scores.GPA;
+import model.scores.StandardTestingScores;
+import model.scores.TestType;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
 
-import javax.xml.validation.Validator;
-
 public class Application_Reader {
-    public String firstName;
-    public String lastName;
-    public String state;
-    public int felonies;
-    public Double gpa;
-    public String gpaScale;
-    public String age;
-    public int felonyDate;
     public JSONObject application;
 
     public Application_Reader() {
     }
 
 
-    public void Get_Candidate_Information(JSONObject application) throws IOException, ParseException {
+    public Candidate Get_Candidate_Information(JSONObject application) throws IOException, ParseException {
         this.application = application;
-        firstName = application.get("FirstName").toString();
-        lastName = application.get("LastName").toString();
-        state = application.get("State").toString();
-        gpa = Double.valueOf(application.get("GPA").toString());
-        age = application.get("Age").toString();
-        felonies = Integer.parseInt(application.get("Felonies").toString());
-        gpaScale = application.get("GPAScale").toString();
+
+        String firstName = application.get("FirstName").toString();
+        String lastName = application.get("LastName").toString();
+        Residency state = ResidencyObjectCreator();
+        int age = Integer.parseInt(application.get("Age").toString());
+        ArrayList<Felonies> felonyObject = FeloniesObjectCreator();
+        GPA gpa = GPAobjectCreator();
+        ArrayList<Felonies> felonies = FeloniesObjectCreator();
+        ArrayList<StandardTestingScores> standardScores = StandardTestingScoreObjectCreator();
+        Candidate candidate = new Candidate(firstName, lastName, state, gpa, age, felonies, standardScores);
+        return candidate;
     }
 
-    public HashMap Store_Candidate_Information(){
-        HashMap<String,Object> candidate = new HashMap<>();
-        candidate.put("FirstName",firstName);
-        candidate.put("LastName",lastName);
-        candidate.put("State",state);
-        candidate.put("GPA",gpa);
-        candidate.put("Age",age);
-        candidate.put("Felonies",felonies);
-        candidate.put("GPAScale",gpaScale);
+    public GPA GPAobjectCreator() {
+        double gpa = Double.parseDouble(application.get("GPA").toString());
+        double gpaScale = Double.parseDouble(application.get("GPA").toString());
+        GPA GPAFromJson = new GPA(gpa, gpaScale);
+        return GPAFromJson;
+    }
 
-        if(application.get("ACT") == null) {
-            candidate.put("ACT", null);
-        }
-        else{
-            Long act = (Long) application.get("ACT");
-            candidate.put("ACT",act);
-        }
-        if(application.get("SAT") == null) {
-            candidate.put("SAT", null);
-        }
-        else{
-            Long sat = (Long) application.get("SAT");
-            candidate.put("SAT",sat);
+    public ArrayList<Felonies> FeloniesObjectCreator() {
+        ArrayList<Felonies> feloniesArrayList = new ArrayList<>();
+        if (application.get("FelonyDate") != null) {
+            JSONArray felonies = (JSONArray) application.get("FelonyDate");
 
+            for (int i = 0; i < felonies.size(); i++) {
+                int years = Integer.parseInt(felonies.get(i).toString());
+                Felonies felonyDates = new Felonies(Year.of(years));
+                feloniesArrayList.add(felonyDates);
+            }
         }
-        if(application.get("FelonyDate") == null) {
-            candidate.put("FelonyDate", null);
+        return feloniesArrayList;
+    }
+
+
+    public ArrayList<StandardTestingScores> StandardTestingScoreObjectCreator() {
+        JSONArray ACTscores = (JSONArray) application.get("ACT");
+        ArrayList<StandardTestingScores> standardTestingScoresArrayList = new ArrayList<>();
+
+        if (application.get("SAT") != null) {
+            JSONArray SATscores = (JSONArray) application.get("SAT");
+
+            for (int i = 0; i < SATscores.size(); i++) {
+                int SATscore = Integer.parseInt(SATscores.get(i).toString());
+                StandardTestingScores SAT = new StandardTestingScores(SATscore, TestType.SAT);
+                standardTestingScoresArrayList.add(SAT);
+            }
         }
-        else{
-            long felonyDate = (Long) application.get("FelonyDate");
-            candidate.put("FelonyDate",felonyDate);
+        if (application.get("ACT") != null) {
+            for (int i = 0; i < ACTscores.size(); i++) {
+                int ACTscore = Integer.parseInt(ACTscores.get(i).toString());
+                StandardTestingScores ACT = new StandardTestingScores(ACTscore, TestType.ACT);
+                standardTestingScoresArrayList.add(ACT);
+            }
         }
-    return candidate;
+        return standardTestingScoresArrayList;
+    }
+
+    public Residency ResidencyObjectCreator() {
+        String state = application.get("State").toString();
+        Residency resident;
+        if (state.equalsIgnoreCase(String.valueOf(Residency.CA))) {
+            resident = Residency.CA;
+        } else {
+            resident = Residency.other;
+        }
+        return resident;
     }
 }

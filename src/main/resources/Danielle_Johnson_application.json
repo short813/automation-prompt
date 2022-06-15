@@ -8,7 +8,7 @@
   "GPA": 3.5,
   "GPAScale": 6.0,
   "SAT": null,
-  "ACT": 25,
+  "ACT": [25],
   "Felonies":0 ,
   "FelonyDate": null
 }
