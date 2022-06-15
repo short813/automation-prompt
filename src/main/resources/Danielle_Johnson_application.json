@@ -2,14 +2,16 @@
   "FirstName": "Danielle",
   "LastName": "Johnson",
   "Age": 19,
-  "Address":"111 A St",
+  "Address": "111 A St",
   "City": "Seattle",
   "State": "WA",
   "GPA": 3.5,
   "GPAScale": 6.0,
   "SAT": null,
-  "ACT": [25],
-  "Felonies":0 ,
+  "ACT": [
+    25
+  ],
+  "Felonies": 0,
   "FelonyDate": null
 }
 

@@ -8,6 +8,7 @@ public enum TestType {
     TestType(int acceptScore) {
         this.acceptScore = acceptScore;
     }
+
     public int getInstantAcceptScore() {
         return this.acceptScore;
     }

@@ -1,4 +1,5 @@
 package com.college_screener;
+
 import java.io.IOException;
 import java.time.Year;
 import java.util.*;
@@ -58,12 +59,10 @@ public class Application_Reader {
 
 
     public ArrayList<StandardTestingScores> StandardTestingScoreObjectCreator() {
-        JSONArray ACTscores = (JSONArray) application.get("ACT");
         ArrayList<StandardTestingScores> standardTestingScoresArrayList = new ArrayList<>();
 
         if (application.get("SAT") != null) {
             JSONArray SATscores = (JSONArray) application.get("SAT");
-
             for (int i = 0; i < SATscores.size(); i++) {
                 int SATscore = Integer.parseInt(SATscores.get(i).toString());
                 StandardTestingScores SAT = new StandardTestingScores(SATscore, TestType.SAT);
@@ -71,6 +70,7 @@ public class Application_Reader {
             }
         }
         if (application.get("ACT") != null) {
+            JSONArray ACTscores = (JSONArray) application.get("ACT");
             for (int i = 0; i < ACTscores.size(); i++) {
                 int ACTscore = Integer.parseInt(ACTscores.get(i).toString());
                 StandardTestingScores ACT = new StandardTestingScores(ACTscore, TestType.ACT);

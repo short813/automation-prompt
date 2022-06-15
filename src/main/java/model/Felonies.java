@@ -11,6 +11,7 @@ public class Felonies {
         this.convictionDate = convictionDate;
 
     }
+
     public Year getConvictionDate() {
         return this.convictionDate;
     }

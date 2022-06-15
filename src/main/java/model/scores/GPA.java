@@ -3,6 +3,7 @@ package model.scores;
 public class GPA {
     private double score;
     private double scale;
+
     public GPA(double score, double scale) {
         this.score = score;
         this.scale = scale;

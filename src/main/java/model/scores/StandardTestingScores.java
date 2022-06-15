@@ -3,7 +3,7 @@ package model.scores;
 public class StandardTestingScores {
     //Score
     // Test Type
-        //Enum of SAT or ACT
+    //Enum of SAT or ACT
     private int score;
     private TestType testType;
 

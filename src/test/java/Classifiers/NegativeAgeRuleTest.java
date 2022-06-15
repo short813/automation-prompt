@@ -15,7 +15,7 @@ public class NegativeAgeRuleTest {
     @Test
     public void When_Applicant_Has_a_Negative_Age_Expect_Reject(){
         // Create Applicant with a negative age
-        Candidate candidate = new Candidate("Fred","Flintstone", Residency.CA,new GPA(3.9,4.0),-5, new ArrayList<Felonies>(),new ArrayList<StandardTestingScores>());
+        Candidate candidate = new Candidate("Fred", "Flintstone", Residency.CA, new GPA(3.9, 4.0), -5, new ArrayList<Felonies>(), new ArrayList<StandardTestingScores>());
         AgeValidator age = new AgeValidator();
         // Get Decision
         String results = age.AgeCheck(candidate);

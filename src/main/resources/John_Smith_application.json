@@ -2,13 +2,17 @@
   "FirstName": "John",
   "LastName": "Smith",
   "Age": 25,
-  "Address":"111 A St",
+  "Address": "111 A St",
   "City": "San Diego",
   "State": "CA",
   "GPA": 3.9,
   "GPAScale": 4.0,
-  "SAT": [1930],
+  "SAT": [
+    1930
+  ],
   "ACT": null,
   "Felonies": 1,
-  "FelonyDate": [2001]
+  "FelonyDate": [
+    2001
+  ]
 }
